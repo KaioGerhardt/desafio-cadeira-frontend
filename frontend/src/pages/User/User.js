@@ -1,19 +1,24 @@
 import React, { useState, useEffect }  from 'react';
-import './CreateUser.css';
+import './User.css';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import config from '../../config';
+import SideBar from '../../Component/Sidebar/Sidebar';
 
 
-const CreateUser = ({ onClose }) => {
-    const [nome, setNome] = useState('');
+const User = ({ onClose }) => {
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [perfil, setPerfil] = useState('');
+    const [initialPassword, setPassword] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Aqui você pode enviar os dados do cadastro para onde quiser
-        console.log('Nome:', nome);
-        console.log('Email:', email);
-        onClose(); // Fecha o pop-up após o envio do formulário
+
+        const response = await axios.post(`${config.backendUrl}/register`, { name, email, perfil, initialPassword });
+        console.log(response);
+
+        onClose();
     };
 
     const handleEsc = (e) => {
@@ -31,14 +36,17 @@ const CreateUser = ({ onClose }) => {
     }, []);
 
     return (
-        <div className="popup-container">
+        <div className="container">
+            <SideBar />
+
+        <div className="content">
             <div className="popup">
                 <div className="popup_inner">
                     <h2>Cadastro de Usuario</h2>
                     <form onSubmit={handleSubmit}>
                         <label>
-                            Nome:
-                            <input type="text" value={nome} onChange={(e) => setNome(e.target.value)} />
+                            name:
+                            <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
                         </label>
                         <label>
                             Email:
@@ -52,16 +60,21 @@ const CreateUser = ({ onClose }) => {
                                 <option value="student">Estudante</option>
                             </select>
                         </label>
+                        <label>
+                            Senha Inicial:
+                            <input type="password" value={initialPassword} onChange={(e) => setPassword(e.target.value)} />
+                        </label>
                         <button type="submit">Cadastrar</button>
                     </form>
                 </div>
             </div>
         </div>
+        </div>
     );
 };
 
-CreateUser.propTypes = {
+User.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
 
-export default CreateUser;
+export default User;

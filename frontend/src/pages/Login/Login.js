@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import './Login.css'; 
+import './Login.css';
 import axios from 'axios';
 import config from '../../config';
 
@@ -21,23 +21,32 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const response = await axios.post(`${config.backendUrl}/login`, { email, password });
+      const response = await axios.post(`${config.backendUrl}/login`, { email, password });
 
-        if(response.data.code == 200) {
-            setEntity(response.data.user.entity);
+      if (response.data.code == 200) {
+        setEntity(response.data.user.entity);
 
-            if(response.data.authentication){
-                setLoggedIn(true);
-            }
+        if (response.data.authentication) {
+          setLoggedIn(true);
         }
-      } catch (error) {
-        console.error('Erro ao fazer login:', error);
       }
-  };
+    } catch (error) {
+      console.error('Erro ao fazer login:', error);
+    }
+  };  
+
+  useEffect(() => {
+    console.log("user effect na login");
+    localStorage.setItem('redirected', 'login');
+  }, []);
 
   if (loggedIn && entity === "STUDENT") {
+    localStorage.setItem("entityUser", "STUDENT");
+
     return <Redirect to="/mainStudent" />;
   } else if (loggedIn && entity === "TEACHER") {
+    localStorage.setItem("entityUser", "TEACHER");
+
     return <Redirect to="/mainTeacher" />;
   }
 

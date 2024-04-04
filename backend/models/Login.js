@@ -19,10 +19,24 @@ class LoginModel {
         }
     }
 
-    async create(){
+    async create(body){
         try{
+            const table = body.perfil;
 
+            const user = await db.run(
+                `INSERT INTO ${table} (name)
+                VALUES (?)`, [body.name]
+            );
+
+            const login = await db.run(
+                `INSERT INTO login (password, email, entity, idEntity)
+                VALUES (?,?,?,?)`,
+                [body.initialPassword, body.email, toUpperCase(body.perfil), user.lastID]
+            );
+
+            return {message: 'success', create: true, code: 201 }
         }catch(error){
+            console.error(error)
             return {message: 'error', create: false, code: 500}
         }
     }
