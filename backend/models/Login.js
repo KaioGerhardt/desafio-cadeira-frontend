@@ -24,14 +24,14 @@ class LoginModel {
             const table = body.perfil;
 
             const user = await db.run(
-                `INSERT INTO ${table} (name)
-                VALUES (?)`, [body.name]
+                `INSERT INTO user (name, type)
+                VALUES (?, ?)`, [body.name, toUpperCase(body.perfil)]
             );
 
             const login = await db.run(
-                `INSERT INTO login (password, email, entity, idEntity)
+                `INSERT INTO login (password, email, idUser)
                 VALUES (?,?,?,?)`,
-                [body.initialPassword, body.email, toUpperCase(body.perfil), user.lastID]
+                [body.initialPassword, body.email, , user.lastID]
             );
 
             return {message: 'success', create: true, code: 201 }
