@@ -19,7 +19,6 @@ const SideBar = () => {
                 entity === "ADMIN" && (
                     <ul>
                         <li onClick={() => setComponent('class')}>Turmas</li>
-                        <li onClick={() => setComponent('user')}>Usuarios</li>
                         <li onClick={() => setComponent('teacher')}>Professores</li>
                         <li onClick={() => setComponent('student')}>Alunos</li>
                     </ul>
