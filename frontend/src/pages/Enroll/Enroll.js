@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import './User.css';
-import PropTypes from 'prop-types';
-import axios from 'axios';
-import config from '../../config';
-import SideBar from '../../Component/Sidebar/Sidebar';
+// src/pages/Dashboard/Dashboard.js
+import React, { useState } from 'react';
 
+function Enroll() {
 
-const User = ({ onClose }) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [perfil, setPerfil] = useState('');
@@ -15,30 +11,14 @@ const User = ({ onClose }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const response = await axios.post(`${config.backendUrl}/register`, { name, email, perfil, initialPassword });
-        console.log(response);
+        // const response = await axios.post(`${config.backendUrl}/register`, { name, email, perfil, initialPassword });
+        // console.log(response);
 
-        onClose();
+        // onClose();
     };
-
-    const handleEsc = (e) => {
-        if (e.key === 'Escape') {
-            onClose();
-        }
-    };
-
-    useEffect(() => {
-        document.addEventListener('keydown', handleEsc, false);
-
-        return () => {
-            document.removeEventListener('keydown', handleEsc, false);
-        };
-    }, []);
 
     return (
         <div className="container">
-            <SideBar />
-
             <div className="content">
                 <div className="popup">
                     <div className="popup_inner">
@@ -74,14 +54,6 @@ const User = ({ onClose }) => {
             </div>
         </div>
     );
-};
+}
 
-User.defaultProps = {
-    onClose: () => { } // Isso evita que onClose seja `undefined`
-};
-
-User.propTypes = {
-    onClose: PropTypes.func.isRequired,
-};
-
-export default User;
+export default Enroll;
