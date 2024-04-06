@@ -18,41 +18,41 @@ function Enroll() {
     };
 
     return (
-        <div className="container">
-            <div className="content">
-                <div className="popup">
-                    <div className="popup_inner">
-                        <h2 style={{ textAlign: 'center' }}>Cadastro de Alunos</h2>
+        <div className="custom-container">
+            <div className="custom-content">
+                <div className="custom-popup">
+                    <div className="custom-popup-inner">
+                        <h2 className="custom-h2">Cadastro de Alunos</h2>
                         <form onSubmit={handleSubmit}>
-                            <label>
-                                name:
-                                <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+                            <label className="custom-label">
+                                Nome
+                                <input type="text" className="custom-input" value={name} onChange={(e) => setName(e.target.value)} />
                             </label>
-                            <label>
-                                Email:
-                                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                            <label className="custom-label">
+                                Email
+                                <input type="email" className="custom-input" value={email} onChange={(e) => setEmail(e.target.value)} />
                             </label>
-                            <label>
-                                Perfil:
-                                <select value={perfil} onChange={(e) => setPerfil(e.target.value)}>
+                            <label className="custom-label">
+                                Perfil
+                                <select className="custom-select" value={perfil} onChange={(e) => setPerfil(e.target.value)}>
                                     <option value="0">Selecione</option>
                                     <option value="teacher">Professor</option>
                                     <option value="student">Estudante</option>
                                 </select>
                             </label>
-                            <label>
-                                Senha Inicial:
-                                <input type="password" value={initialPassword} onChange={(e) => setPassword(e.target.value)} />
+                            <label className="custom-label">
+                                Senha Inicial
+                                <input type="password" className="custom-input" value={initialPassword} onChange={(e) => setPassword(e.target.value)} />
                             </label>
-                            <button type="submit">Cadastrar</button>
+                            <button type="submit" className="custom-button">Cadastrar</button>
                         </form>
                     </div>
                 </div>
-                <div className="popup">
-                    <h2 style={{ textAlign: 'center' }}>Usuarios cadastrados</h2>
+                <div className="custom-popup">
+                    <h2 className="custom-h2">Usuários cadastrados</h2>
                 </div>
             </div>
-        </div>
+        </div>    
     );
 }
 

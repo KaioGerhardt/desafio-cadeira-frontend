@@ -24,7 +24,6 @@ function Dashboard() {
   return (
     <div className="Dashboard">
       <SideBar />
-      <h1>Variável atual: {component}</h1>
  
       {component == "class" && <Class onClose={handleClose} />}
       {component == "enroll" && <Enroll />}
