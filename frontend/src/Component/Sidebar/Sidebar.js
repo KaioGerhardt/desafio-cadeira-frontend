@@ -2,21 +2,25 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types'; // Importe o PropTypes
 import './Sidebar.css';
 
-const SideBar = ({ onItemClick }) => {
+const SideBar = () => {
     const [entity, setEntity] = useState('');
 
     useEffect(() => {
         setEntity(localStorage.getItem('entityUser'))
     }, []);
 
+    const setComponent = (component) => {
+        localStorage.setItem('component', component);
+    };
+
     return (
         <div className="sidebar">
             {
                 entity === "ADMIN" && (
                     <ul>
-                        <li onClick={() => onItemClick('class')}>Turmas</li>
-                        <li onClick={() => onItemClick('user')}>Usuarios</li>
-                        <li onClick={() => onItemClick('enroll')}>Matrículas</li>
+                        <li onClick={() => setComponent('class')}>Turmas</li>
+                        <li onClick={() => setComponent('user')}>Usuarios</li>
+                        <li onClick={() => setComponent('enroll')}>Matrículas</li>
                     </ul>
                 )
             }
