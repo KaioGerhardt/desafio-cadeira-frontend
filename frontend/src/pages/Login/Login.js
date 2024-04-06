@@ -46,33 +46,36 @@ const Login = () => {
   }
 
   return (
-    <div className="login-container">
-      <form onSubmit={handleSubmit} className="login-form">
-        <h2>Login</h2>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            placeholder="Digite seu email"
-            value={email}
-            onChange={handleEmailChange}
-            required
-          />
+    <div className="appContainer">
+      <div className="boxContainer">
+        <div className="backDrop">
         </div>
-        <div className="form-group">
-          <label htmlFor="password">Senha:</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Digite sua senha"
-            value={password}
-            onChange={handlePasswordChange}
-            required
-          />
+        <div className="topContainer">
+            <div className="headerText">Bem-vindo!</div>
+            <div className="smallText">Acesse sua conta</div>
         </div>
-        <button type="submit">Entrar</button>
-      </form>
+        <div className="formContainer">
+          <form onSubmit={handleSubmit} className="login-form">
+              <input
+                type="email"
+                id="email"
+                placeholder="Email"
+                value={email}
+                onChange={handleEmailChange}
+                required
+              />
+              <input
+                type="password"
+                id="password"
+                placeholder="Senha"
+                value={password}
+                onChange={handlePasswordChange}
+                required
+              />
+            <button className="submitButton" type="submit">Entrar</button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };
