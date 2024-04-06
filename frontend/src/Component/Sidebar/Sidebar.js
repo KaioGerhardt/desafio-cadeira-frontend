@@ -1,32 +1,48 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import './Sidebar.css';
+    import React, { useEffect, useState } from 'react';
+    import PropTypes from 'prop-types'; // Importe o PropTypes
+    import './Sidebar.css';
 
-const SideBar = () => {
-    const [entity, setEntity] = useState('');
+    const SideBar = ({ onItemClick }) => {
+        const [entity, setEntity] = useState('');
 
-    useEffect(() => {
-        setEntity(localStorage.getItem('entityUser'))
-    }, []);
+        useEffect(() => {
+            setEntity(localStorage.getItem('entityUser'))
+        }, []);
 
-    return (
-        <div className="sidebar">
-            {
-                entity === "TEACHER" && (
-                    <ul>
-                        <li><Link to="/class">Turmas</Link></li>
-                        <li><Link to="/user">Alunos</Link></li>
-                        <li><Link to="/tela3">Matrículas</Link></li>
-                    </ul>
-                )
-            }
-            <div className="logout">
-                <Link to="/logout">
-
-                </Link>
+        return (
+            <div className="sidebar">
+                {
+                    entity === "ADMIN" && (
+                        <ul>
+                            <li  onClick={() => onItemClick('class')}>Turmas</li>
+                            <li onClick={() => onItemClick('user')}>Usuarios</li>
+                            <li onClick={() => onItemClick('enroll')}>Matrículas</li>
+                        </ul>
+                    )
+                }
+                {
+                    entity === "TEACHER" && (
+                        <ul>
+                            <li onClick={() => onItemClick('class')}>Turmas</li>
+                            <li onClick={() => onItemClick('class')}>Matrículas</li>
+                        </ul>
+                    )
+                }
+                {
+                    entity === "STUDENT" && (
+                        <ul>
+                            <li onClick={() => onItemClick('class')}>Turmas</li>
+                            <li onClick={() => onItemClick('class')}>Alunos</li>
+                            <li onClick={() => onItemClick('class')}>Matrículas</li>
+                        </ul>
+                    )
+                }
             </div>
-        </div>
-    );
-};
+        );
+    };
 
-export default SideBar;
+    SideBar.propTypes = {
+        onItemClick: PropTypes.func.isRequired // Adicione a validação de tipo para a propriedade onItemClick
+    };
+
+    export default SideBar;
