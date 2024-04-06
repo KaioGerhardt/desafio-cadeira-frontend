@@ -24,7 +24,7 @@ const SideBar = ({ onItemClick }) => {
                 entity === "TEACHER" && (
                     <ul>
                         <li onClick={() => onItemClick('class')}>Turmas</li>
-                        <li onClick={() => onItemClick('class')}>Matrículas</li>
+                        <li onClick={() => onItemClick('enroll')}>Matrículas</li>
                     </ul>
                 )
             }
@@ -32,8 +32,8 @@ const SideBar = ({ onItemClick }) => {
                 entity === "STUDENT" && (
                     <ul>
                         <li onClick={() => onItemClick('class')}>Turmas</li>
-                        <li onClick={() => onItemClick('class')}>Alunos</li>
-                        <li onClick={() => onItemClick('class')}>Matrículas</li>
+                        <li onClick={() => onItemClick('student')}>Alunos</li>
+                        <li onClick={() => onItemClick('enroll')}>Matrículas</li>
                     </ul>
                 )
             }
