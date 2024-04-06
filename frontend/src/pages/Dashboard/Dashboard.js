@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 import SideBar from '../../Component/Sidebar/Sidebar';
 import Class from '../Class/Class';
 import User from '../User/User';
+import Enroll from '../Enroll/Enroll';
+import Teacher from '../Teacher/Teacher';
+import Student from '../Student/Student';
 import PropTypes from 'prop-types';
 
 function Dashboard() {
@@ -26,6 +29,9 @@ function Dashboard() {
  
       {component == "class" && <Class onClose={handleClose} />}
       {component == "user" && <User />}
+      {component == "enroll" && <Enroll />}
+      {component == "teacher" && <Teacher />}
+      {component == "student" && <Student />}
     </div>
   );
 }
