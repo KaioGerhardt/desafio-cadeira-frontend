@@ -35,6 +35,15 @@ router.post ('/new-class', async (req, res) => {
   res.status(newClass.code).send(newClass);
 });
 
+// get classes
+router.get ('/classes', async (req, res) => {  
+  const classModel = new ClassModel();
+  const newClass = await classModel.get(req.body);
+
+  res.status(newClass.code).send(newClass);
+});
+
+
 // get teachers
 router.post ('/teachers', async (req, res) => {  
 

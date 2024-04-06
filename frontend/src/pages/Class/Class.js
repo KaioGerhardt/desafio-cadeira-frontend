@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import './Class.css';
 import HoursInputMask from '../../mask/HoursInputMask';
 import axios from 'axios';
 import config from '../../config';
 import SideBar from '../../Component/Sidebar/Sidebar';
 
-const Class = ({ onClose }) => {
+const Class = () => {
     const [name, setName] = useState('');
     const [hoursOffered, setHoursOffered] = useState('');
     const [dayOffered, setDayOffered] = useState('');
     const [limitStudents, setLimitStudents] = useState('');
+    const [classesDataBase, setClassesDataBase] = useState([]);
     const diasDaSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
 
     const handleSubmit = async (e) => {
@@ -19,18 +19,10 @@ const Class = ({ onClose }) => {
         const response = await axios.post(`${config.backendUrl}/new-class`, { name, hoursOffered, dayOffered, limitStudents });
         console.log(response);
 
-        // onClose(); // Fecha o pop-up após o envio do formulário
     };
 
     const handleHorasChange = (novaHoras) => {
         setHoursOffered(novaHoras);
-    };
-
-
-    const handleEsc = (e) => {
-        if (e.key === 'Escape') {
-            onClose();
-        }
     };
 
     useEffect(() => {
@@ -42,26 +34,33 @@ const Class = ({ onClose }) => {
             window.location.reload();
         }
 
-        console.log('entrou na tela');
-        document.addEventListener('keydown', handleEsc, false);
-
-        return () => {
-            document.removeEventListener('keydown', handleEsc, false);
+        const loadClasses = async () => {
+            try {
+                console.log("chegou no loadClasses called");
+                const classes = await axios.get(`${config.backendUrl}/classes`);
+                setClassesDataBase(classes.data.data);
+            } catch (error) {
+                console.error('Erro ao carregar dados:', error);
+            }
         };
 
-        // const loadTeachers = async () => {
-        //     try {
-        //         // Faça a requisição HTTP para obter os dados
-        //         const teachers = await axios.get('URL_DA_API_AQUI');
-        //         // Atualize o estado com os dados recebidos
-        //         setDados(resposta.data);
-        //     } catch (error) {
-        //         console.error('Erro ao carregar dados:', error);
-        //     }
-        // };
-
-        // loadTeachers();
+        loadClasses();
     }, []);
+
+    const mountTable = () => {
+        return classesDataBase.map((element, index) => {
+            let dataTable = Object.fromEntries(Object.entries(element));
+
+            return (
+                <tr key={index}>
+                    <td>{dataTable.className}</td>
+                    <td>{dataTable.dayOffered}</td>
+                    <td>{dataTable.teacherName}</td>
+                    <td>{dataTable.limitStudent}</td>
+                </tr>
+            )
+        });
+    }
 
     return (
         <div className="container">
@@ -70,7 +69,7 @@ const Class = ({ onClose }) => {
             <div className='content'>
                 <div className="popup">
                     <div className="popup_inner">
-                        <h2>Cadastro de Turmas</h2>
+                        <h2 style={{ textAlign: 'center' }}>Cadastro de Turmas</h2>
                         <form onSubmit={handleSubmit}>
                             <label>
                                 Nome:
@@ -101,12 +100,30 @@ const Class = ({ onClose }) => {
                     </div>
                 </div>
             </div>
+
+            <div className='content'>
+                <div className="popup">
+                    <div className="popup_inner">
+                        <h2 style={{ textAlign: 'center' }}>Turmas Cadastradas</h2>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Dia da Semana</th>
+                                    <th>Nome do Professor</th>
+                                    <th>Limite de Estudantes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {mountTable()}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     );
-};
-
-Class.propTypes = {
-    onClose: PropTypes.func.isRequired,
 };
 
 export default Class;
