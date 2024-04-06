@@ -37,17 +37,12 @@ const Login = () => {
 
   useEffect(() => {
     console.log("user effect na login");
-    localStorage.setItem('redirected', 'login');
   }, []);
 
-  if (loggedIn && entity === "STUDENT") {
-    localStorage.setItem("entityUser", "STUDENT");
+  if (loggedIn) {
+    localStorage.setItem("entityUser", entity);
 
-    return <Redirect to="/mainStudent" />;
-  } else if (loggedIn && entity === "TEACHER") {
-    localStorage.setItem("entityUser", "TEACHER");
-
-    return <Redirect to="/mainTeacher" />;
+    return <Redirect to="/dashboard" />;
   }
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect }  from 'react';
+import React, { useState, useEffect } from 'react';
 import './User.css';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -24,7 +24,7 @@ const User = ({ onClose }) => {
     const handleEsc = (e) => {
         if (e.key === 'Escape') {
             onClose();
-        }       
+        }
     };
 
     useEffect(() => {
@@ -39,38 +39,45 @@ const User = ({ onClose }) => {
         <div className="container">
             <SideBar />
 
-        <div className="content">
-            <div className="popup">
-                <div className="popup_inner">
-                    <h2>Cadastro de Usuario</h2>
-                    <form onSubmit={handleSubmit}>
-                        <label>
-                            name:
-                            <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-                        </label>
-                        <label>
-                            Email:
-                            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                        </label>
-                        <label>
-                            Perfil:
-                            <select value={perfil} onChange={(e) => setPerfil(e.target.value)}>
-                                <option value="0">Selecione</option>
-                                <option value="teacher">Professor</option>
-                                <option value="student">Estudante</option>
-                            </select>
-                        </label>
-                        <label>
-                            Senha Inicial:
-                            <input type="password" value={initialPassword} onChange={(e) => setPassword(e.target.value)} />
-                        </label>
-                        <button type="submit">Cadastrar</button>
-                    </form>
+            <div className="content">
+                <div className="popup">
+                    <div className="popup_inner">
+                        <h2 style={{ textAlign: 'center' }}>Cadastro de Usuario</h2>
+                        <form onSubmit={handleSubmit}>
+                            <label>
+                                name:
+                                <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+                            </label>
+                            <label>
+                                Email:
+                                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                            </label>
+                            <label>
+                                Perfil:
+                                <select value={perfil} onChange={(e) => setPerfil(e.target.value)}>
+                                    <option value="0">Selecione</option>
+                                    <option value="teacher">Professor</option>
+                                    <option value="student">Estudante</option>
+                                </select>
+                            </label>
+                            <label>
+                                Senha Inicial:
+                                <input type="password" value={initialPassword} onChange={(e) => setPassword(e.target.value)} />
+                            </label>
+                            <button type="submit">Cadastrar</button>
+                        </form>
+                    </div>
+                </div>
+                <div className="popup">
+                    <h2 style={{ textAlign: 'center' }}>Usuarios cadastrados</h2>
                 </div>
             </div>
         </div>
-        </div>
     );
+};
+
+User.defaultProps = {
+    onClose: () => { } // Isso evita que onClose seja `undefined`
 };
 
 User.propTypes = {
