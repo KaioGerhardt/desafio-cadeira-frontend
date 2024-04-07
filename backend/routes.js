@@ -29,8 +29,6 @@ router.post ('/register', async (req, res) => {
 //create class
 router.post ('/new-class', async (req, res) => {  
 
-  console.log("data request ", req.body)
-
   const classModel = new ClassModel();
   const newClass = await classModel.create(req.body);
 

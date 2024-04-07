@@ -7,7 +7,6 @@ function Enroll() {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [perfil, setPerfil] = useState('');
     const [initialPassword, setPassword] = useState('');
     const [classesDataBase, setClassesDataBase] = useState([]);
     const [entityUser, setEntityUser] = useState('');
@@ -15,8 +14,8 @@ function Enroll() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // const response = await axios.post(`${config.backendUrl}/register`, { name, email, perfil, initialPassword });
-        // console.log(response);
+        const response = await axios.post(`${config.backendUrl}/register`, { name, email, perfil: "STUDENT", initialPassword });
+        console.log(response);
 
         // onClose();
     };
@@ -26,7 +25,6 @@ function Enroll() {
         const loadStudents = async () => {
             try {
                 const students = await axios.get(`${config.backendUrl}/students`);
-                console.log("data request ", students.data.data);
                 setClassesDataBase(students.data.data);
             } catch (error) {
                 console.error('Erro ao carregar dados:', error);
@@ -70,14 +68,6 @@ function Enroll() {
                                 <label>
                                     Email:
                                     <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                                </label>
-                                <label>
-                                    Perfil:
-                                    <select value={perfil} onChange={(e) => setPerfil(e.target.value)}>
-                                        <option value="0">Selecione</option>
-                                        <option value="teacher">Professor</option>
-                                        <option value="student">Estudante</option>
-                                    </select>
                                 </label>
                                 <label>
                                     Senha Inicial:
