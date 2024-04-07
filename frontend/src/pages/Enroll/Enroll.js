@@ -1,12 +1,14 @@
 // src/pages/Dashboard/Dashboard.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import config from '../../config';
 
 function Enroll() {
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [perfil, setPerfil] = useState('');
-    const [initialPassword, setPassword] = useState('');
+    const [idStudent, setIdStudent] = useState(0);
+    const [classesEnrolled, setClassesEnrolled] = useState([]);
+    const [classesAvaliable, setClassesAvaliable] = useState([]);
+    const [idClass, setIdClass] = useState(0);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -17,41 +19,132 @@ function Enroll() {
         // onClose();
     };
 
+
+    useEffect(() => {
+
+        setIdStudent(parseInt(localStorage.getItem('idUser')));
+
+        const loadClassesEnrolled = async () => {
+            try {
+                // console.log("enrolledIdStudent ", idStudent);  
+                const classes = await axios.post(`${config.backendUrl}/classes-enrolled`, { idStudent });
+                setClassesEnrolled(classes.data.data);
+            } catch (error) {
+                console.error('Erro ao carregar dados:', error);
+            }
+        };
+
+        loadClassesEnrolled();
+
+        const loadClassesAvaliable = async () => {
+            try {
+                console.log("avaliableIdStudent ", idStudent);    
+                const classes = await axios.post(`${config.backendUrl}/classes-avaliable`, { idStudent });
+                setClassesAvaliable(classes.data.data);
+            } catch (error) {
+                console.error('Erro ao carregar dados:', error);
+            }
+        };
+
+        loadClassesAvaliable();
+
+
+    }, [])
+
+    const mountTableClassesEnrolled = () => {
+        return classesEnrolled.map((element, index) => {
+            let dataTable = Object.fromEntries(Object.entries(element));
+
+            return (
+                <tr key={index}>
+                    <td>{dataTable.className}</td>
+                    <td>{dataTable.dayOffered}</td>
+                    <td>{dataTable.hourOffered}</td>
+                    <td>{dataTable.teacherName}</td>
+                </tr>
+            )
+        });
+    }
+
+    const mountTableClassesAvailable = () => {
+        return classesAvaliable.map((element, index) => {
+            let dataTable = Object.fromEntries(Object.entries(element));
+
+            return (
+                <tr key={index}>
+                    <td>{dataTable.className}</td>
+                    <td>{dataTable.dayOffered}</td>
+                    <td>{dataTable.hourOffered}</td>
+                    <td>{dataTable.teacherName}</td>
+                </tr>
+            )
+        });
+    }
+
+    const mountOptionsClass= () => {
+        return classesAvaliable.map((element, index) => {
+            let classesAvaliable = Object.fromEntries(Object.entries(element));
+
+            return (
+                <option key={index} value={classesAvaliable.idClass}>{classesAvaliable.className}</option>
+            )
+        });
+    }
+
     return (
         <div className="container">
             <div className="content">
                 <div className="popup">
                     <div className="popup_inner">
-                        <h2 style={{ textAlign: 'center' }}>Cadastro de Usuario</h2>
+                        <h2 style={{ textAlign: 'center' }}>Matricular-se</h2>
                         <form onSubmit={handleSubmit}>
                             <label>
-                                name:
-                                <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-                            </label>
-                            <label>
-                                Email:
-                                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                            </label>
-                            <label>
-                                Perfil:
-                                <select value={perfil} onChange={(e) => setPerfil(e.target.value)}>
-                                    <option value="0">Selecione</option>
-                                    <option value="teacher">Professor</option>
-                                    <option value="student">Estudante</option>
+                                <select value={idClass} onChange={(e) => setIdClass(e.target.value)}>
+                                    {mountOptionsClass()}
                                 </select>
-                            </label>
-                            <label>
-                                Senha Inicial:
-                                <input type="password" value={initialPassword} onChange={(e) => setPassword(e.target.value)} />
                             </label>
                             <button type="submit">Cadastrar</button>
                         </form>
                     </div>
                 </div>
                 <div className="popup">
-                    <h2 style={{ textAlign: 'center' }}>Usuarios cadastrados</h2>
+                    <div className="popup_inner">
+                        <h2 style={{ textAlign: 'center' }}>Turmas Disponiveis</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Turma</th>
+                                    <th>Dia da Semana</th>
+                                    <th>Horario</th>
+                                    <th>Professor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {mountTableClassesAvailable()}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div className="popup">
+                    <div className="popup_inner">
+                        <h2 style={{ textAlign: 'center' }}>Turmas Matriculadas</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Turma</th>
+                                    <th>Dia da Semana</th>
+                                    <th>Horario</th>
+                                    <th>Professor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {mountTableClassesEnrolled()}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
+
         </div>
     );
 }

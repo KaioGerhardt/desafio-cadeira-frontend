@@ -43,6 +43,30 @@ router.get ('/classes', async (req, res) => {
   res.status(newClass.code).send(newClass);
 });
 
+// get classes enrolled
+router.post ('/classes-enrolled', async (req, res) => {  
+  const classModel = new ClassModel();
+  const newClass = await classModel.classesEnrolled(req.body);
+
+  res.status(newClass.code).send(newClass);
+});
+
+// get classes avaliable
+router.post ('/classes-avaliable', async (req, res) => {  
+  const classModel = new ClassModel();
+  const newClass = await classModel.classesAvaliable(req.body);
+
+  res.status(newClass.code).send(newClass);
+});
+
+// class enrollment
+router.post ('/classes-enroll', async (req, res) => {  
+  const classModel = new ClassModel();
+  const newClass = await classModel.enroll(req.body);
+
+  res.status(newClass.code).send(newClass);
+});
+
 
 // get teachers
 router.get ('/teachers', async (req, res) => {  
