@@ -4,8 +4,15 @@ class ClassModel {
 
     async create(body) {
         try{
+            const classes = await db.run(
+                `INSERT INTO class (name, dayOffered, hourOffered, limitStudent)    
+                VALUES (?, ?, ?, ?)`, [body.name, body.dayOffered, body.hoursOffered, body.limitStudents]
+            );
 
-            
+            const classTeacher = await db.run(
+                `INSERT INTO classTeacher (FK_idClass, FK_idUser)
+                VALUES (?, ?)`, [classes.lastID, body.regentTeacher]
+            );
 
             return {code: 201, created: true};
         }catch(error){

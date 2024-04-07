@@ -9,6 +9,7 @@ class TeacherModel {
             const teachers = await db.all(
                 `SELECT
                     user.name,
+                    user.idUser,
                     login.email,
                     GROUP_CONCAT(IFNULL(class.name, 'Não vinculado')) as classesName
                 FROM user

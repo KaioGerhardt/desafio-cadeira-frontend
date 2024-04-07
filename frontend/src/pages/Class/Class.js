@@ -10,13 +10,15 @@ const Class = () => {
     const [hoursOffered, setHoursOffered] = useState('');
     const [dayOffered, setDayOffered] = useState('');
     const [limitStudents, setLimitStudents] = useState('');
+    const [regentTeacher, setRegentTeacher] = useState(0);
     const [classesDataBase, setClassesDataBase] = useState([]);
+    const [teacherssDataBase, setTeachersDataBase] = useState([]);
     const diasDaSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const response = await axios.post(`${config.backendUrl}/new-class`, { name, hoursOffered, dayOffered, limitStudents });
+        const response = await axios.post(`${config.backendUrl}/new-class`, { name, hoursOffered, dayOffered, limitStudents, regentTeacher: parseInt(regentTeacher) });
         console.log(response);
 
     };
@@ -27,16 +29,8 @@ const Class = () => {
 
     useEffect(() => {
 
-
-        const redirected = localStorage.getItem('redirected');
-        if (redirected != "class") {
-            localStorage.setItem('redirected', 'class');
-            window.location.reload();
-        }
-
         const loadClasses = async () => {
             try {
-                console.log("chegou no loadClasses called");
                 const classes = await axios.get(`${config.backendUrl}/classes`);
                 setClassesDataBase(classes.data.data);
             } catch (error) {
@@ -45,6 +39,18 @@ const Class = () => {
         };
 
         loadClasses();
+
+        const loadTeachers = async () => {
+            try {
+                const teachers = await axios.get(`${config.backendUrl}/teachers`);
+                setTeachersDataBase(teachers.data.data);
+            } catch (error) {
+                console.error('Erro ao carregar dados:', error);
+            }
+        };
+
+        loadTeachers();
+
     }, []);
 
     const mountTable = () => {
@@ -58,6 +64,16 @@ const Class = () => {
                     <td>{dataTable.teacherName}</td>
                     <td>{dataTable.limitStudent}</td>
                 </tr>
+            )
+        });
+    }
+
+    const mountOptionsTeacher = () => {
+        return teacherssDataBase.map((element, index) => {
+            let teacher = Object.fromEntries(Object.entries(element));
+
+            return (
+                <option key={index} value={teacher.idUser}>{teacher.name}</option>
             )
         });
     }
@@ -79,7 +95,7 @@ const Class = () => {
                                 Dia Ofertado:
                                 <select value={dayOffered} onChange={(e) => setDayOffered(e.target.value)}>
                                     {diasDaSemana.map((dia, index) => (
-                                        <option key={index} value={index + 1}>{dia}</option>
+                                        <option key={index} value={dia}>{dia}</option>
                                     ))}
                                 </select>
                             </label>
@@ -93,7 +109,9 @@ const Class = () => {
                             </label>
                             <label>
                                 Professor Regente:
-                                <input type="number" value={limitStudents} onChange={(e) => setLimitStudents(e.target.value)} />
+                                <select value={regentTeacher} onChange={(e) => setRegentTeacher(e.target.value)}>
+                                    {mountOptionsTeacher()}
+                                </select>
                             </label>
                             <button type="submit">Cadastrar</button>
                         </form>
