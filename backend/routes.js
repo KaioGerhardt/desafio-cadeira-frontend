@@ -60,7 +60,7 @@ router.post ('/classes-avaliable', async (req, res) => {
 });
 
 // class enrollment
-router.post ('/classes-enroll', async (req, res) => {  
+router.post ('/enroll', async (req, res) => {  
   const classModel = new ClassModel();
   const newClass = await classModel.enroll(req.body);
 

@@ -119,7 +119,7 @@ class ClassModel {
         try{
             const classes = await db.run(
                 `INSERT INTO enrollment (FK_idUser, FK_idClass)
-                VALUEs (?, ?)`, [body.idUser, body.idClass]
+                VALUEs (?, ?)`, [body.idStudent, body.idClass]
             );
 
             return {message: 'success',  data: classes, code: 200};
