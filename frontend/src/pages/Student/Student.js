@@ -10,6 +10,7 @@ function Enroll() {
     const [perfil, setPerfil] = useState('');
     const [initialPassword, setPassword] = useState('');
     const [classesDataBase, setClassesDataBase] = useState([]);
+    const [entityUser, setEntityUser] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -33,6 +34,8 @@ function Enroll() {
         };
 
         loadStudents();
+
+        setEntityUser(localStorage.getItem('entityUser'));
     }, []);
 
     const mountTable = () => {
@@ -52,53 +55,57 @@ function Enroll() {
 
     return (
         <div className="container">
-            <div className="content">
-                <div className="popup">
-                    <div className="popup_inner">
-                        <h2 style={{ textAlign: 'center' }}>Cadastro de Alunos</h2>
-                        <form onSubmit={handleSubmit}>
-                            <label>
-                                name:
-                                <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-                            </label>
-                            <label>
-                                Email:
-                                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                            </label>
-                            <label>
-                                Perfil:
-                                <select value={perfil} onChange={(e) => setPerfil(e.target.value)}>
-                                    <option value="0">Selecione</option>
-                                    <option value="teacher">Professor</option>
-                                    <option value="student">Estudante</option>
-                                </select>
-                            </label>
-                            <label>
-                                Senha Inicial:
-                                <input type="password" value={initialPassword} onChange={(e) => setPassword(e.target.value)} />
-                            </label>
-                            <button type="submit">Cadastrar</button>
-                        </form>
-                    </div>
-                </div>
-                <div className='content'>
+            {
+                entityUser === "ADMIN" &&
+
+                <div className="content">
                     <div className="popup">
                         <div className="popup_inner">
-                            <h2 style={{ textAlign: 'center' }}>Alunos Cadastradas</h2>
-
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Nome</th>
-                                        <th>Email</th>
-                                        <th>Turmas</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {mountTable()}
-                                </tbody>
-                            </table>
+                            <h2 style={{ textAlign: 'center' }}>Cadastro de Alunos</h2>
+                            <form onSubmit={handleSubmit}>
+                                <label>
+                                    name:
+                                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+                                </label>
+                                <label>
+                                    Email:
+                                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                </label>
+                                <label>
+                                    Perfil:
+                                    <select value={perfil} onChange={(e) => setPerfil(e.target.value)}>
+                                        <option value="0">Selecione</option>
+                                        <option value="teacher">Professor</option>
+                                        <option value="student">Estudante</option>
+                                    </select>
+                                </label>
+                                <label>
+                                    Senha Inicial:
+                                    <input type="password" value={initialPassword} onChange={(e) => setPassword(e.target.value)} />
+                                </label>
+                                <button type="submit">Cadastrar</button>
+                            </form>
                         </div>
+                    </div>
+                </div>
+            }
+            <div className='content'>
+                <div className="popup">
+                    <div className="popup_inner">
+                        <h2 style={{ textAlign: 'center' }}>Alunos Cadastradas</h2>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Email</th>
+                                    <th>Turmas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {mountTable()}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
