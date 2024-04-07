@@ -39,12 +39,22 @@ const Login = () => {
   };  
 
   useEffect(() => {
-    console.log("user effect na login");
+    localStorage.removeItem("entityUser");
+    localStorage.removeItem("idUser");
+    localStorage.removeItem("component");
   }, []);
 
   if (loggedIn) {
     localStorage.setItem("entityUser", entity);
     localStorage.setItem("idUser", idUser);
+
+    if(entity === "ADMIN" || entity === "TEACHER") {  
+      localStorage.setItem("component", "class");
+    }else if(entity === "STUDENT"){
+      localStorage.setItem("component", "enroll");
+    }
+
+    setTimeout(() => { window.location.reload() }, 100); 
 
     return <Redirect to="/dashboard" />;
   }
