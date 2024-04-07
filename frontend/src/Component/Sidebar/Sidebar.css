@@ -32,3 +32,18 @@
   margin-right: 20px;
   cursor: pointer; 
 }
+
+.customButton {
+  background-color: transparent;
+  color: #fff; /* Cor branca */
+  font-size: 16px; /* Tamanho da fonte */
+  padding: 12px 20px; /* Padding para tornar o botão um pouco maior */
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.customButton svg {
+  margin-right: 5px; /* Adicionando um pequeno espaço entre o ícone e o texto */
+}

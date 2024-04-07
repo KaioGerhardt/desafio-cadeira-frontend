@@ -55,7 +55,7 @@ const SideBar = () => {
                     </ul>
                 )
             }
-            <button onClick={logout}>
+            <button className="customButton" onClick={logout}>
                 <RiLogoutBoxLine />
                 Sair
             </button>
