@@ -3,7 +3,6 @@ import './Class.css';
 import HoursInputMask from '../../mask/HoursInputMask';
 import axios from 'axios';
 import config from '../../config';
-import SideBar from '../../Component/Sidebar/Sidebar';
 
 const Class = () => {
     const [name, setName] = useState('');
@@ -79,65 +78,42 @@ const Class = () => {
     }
 
     return (
-        <div className="container">
-            <SideBar />
-
-            <div className='content'>
-                <div className="popup">
-                    <div className="popup_inner">
-                        <h2 style={{ textAlign: 'center' }}>Cadastro de Turmas</h2>
-                        <form onSubmit={handleSubmit}>
-                            <label>
-                                Nome:
-                                <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-                            </label>
-                            <label>
-                                Dia Ofertado:
-                                <select value={dayOffered} onChange={(e) => setDayOffered(e.target.value)}>
-                                    {diasDaSemana.map((dia, index) => (
-                                        <option key={index} value={dia}>{dia}</option>
-                                    ))}
-                                </select>
-                            </label>
-                            <label>
-                                Hora ofertada:
-                                <HoursInputMask id="horas" value={hoursOffered} onChange={handleHorasChange} />
-                            </label>
-                            <label>
-                                Limite de Estudantes:
-                                <input type="number" value={limitStudents} onChange={(e) => setLimitStudents(e.target.value)} />
-                            </label>
-                            <label>
-                                Professor Regente:
-                                <select value={regentTeacher} onChange={(e) => setRegentTeacher(e.target.value)}>
-                                    {mountOptionsTeacher()}
-                                </select>
-                            </label>
-                            <button type="submit">Cadastrar</button>
-                        </form>
+        <div className="popup-container">
+            <div className="popup">
+                <h3 style={{ textAlign: 'center' }}>Cadastro de Turmas</h3>
+                <form onSubmit={handleSubmit}>
+                    <input type="text" placeholder="Nome da Turma" value={name} onChange={(e) => setName(e.target.value)} />
+                    <select value={dayOffered} onChange={(e) => setDayOffered(e.target.value)}>
+                        {diasDaSemana.map((dia, index) => (
+                            <option key={index} value={dia}>{dia}</option>
+                        ))}
+                    </select>
+                    <HoursInputMask placeholder="Hora Ofertada" id="horas" value={hoursOffered} onChange={handleHorasChange} />
+                    <input placeholder="Limite de Estudantes" type="number" value={limitStudents} onChange={(e) => setLimitStudents(e.target.value)} />
+                    <select value={regentTeacher} onChange={(e) => setRegentTeacher(e.target.value)}>
+                        {mountOptionsTeacher()}
+                    </select>
+                    <div className="buttonDiv">
+                        <button className="submitButton" type="submit">Cadastrar</button>
                     </div>
-                </div>
+                </form>
             </div>
-
-            <div className='content'>
-                <div className="popup">
-                    <div className="popup_inner">
-                        <h2 style={{ textAlign: 'center' }}>Turmas Cadastradas</h2>
-
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Dia da Semana</th>
-                                    <th>Nome do Professor</th>
-                                    <th>Limite de Estudantes</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {mountTable()}
-                            </tbody>
-                        </table>
-                    </div>
+            <div className="popup-list">
+                <div className="popup_inner">
+                    <h3 style={{ textAlign: 'center' }}>Turmas Cadastradas</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Dia da Semana</th>
+                                <th>Nome do Professor</th>
+                                <th>Limite de Estudantes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {mountTable()}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

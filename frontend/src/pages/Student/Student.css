@@ -1,11 +1,20 @@
-.popup {
+.popup-container {
     position: absolute;
-    width: 100%;
+    width: 100%; 
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
     z-index: 1000;
     margin: 1%;
+}
+
+.popup { 
+    width: 90%; 
+}
+
+.popup-list {
+    margin-top: 20px; 
+    width: 90%;
 }
 
 .submitButton {
@@ -39,9 +48,9 @@ button {
 
 .buttonDiv {
     display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
-    margin-top: 10px; /* Adicione um espaçamento superior se necessário */
+    justify-content: center; 
+    align-items: center; 
+    margin-top: 10px; 
 }
 
 select {
@@ -67,4 +76,48 @@ select:focus {
     outline: none;
     border: 1px solid rgba(241, 196, 15, 1);
 }
-  
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 15px; 
+    text-align: left;
+    border: 1px solid rgba(200, 200, 200, 0.3); 
+}
+
+th {
+    background-color: rgba(200, 200, 200, 0.5);
+}
+
+th:hover {
+    background-color: rgba(241, 196, 15, 1);
+}
+
+td {
+    transition: all 200ms ease-in-out;
+}
+
+tr:hover td {
+    background-color: rgba(241, 196, 15, 0.2);
+}
+
+table {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th:first-child, th:last-child,
+td:first-child, td:last-child {
+    border-color: rgba(200, 200, 200, 0.3);
+}
+
+th:first-child, th:last-child {
+    border-top-color: rgba(200, 200, 200, 0.3);
+}
+
+td:first-child, td:last-child {
+    border-bottom-color: rgba(200, 200, 200, 0.3);
+}

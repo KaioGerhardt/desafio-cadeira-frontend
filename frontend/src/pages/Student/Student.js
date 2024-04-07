@@ -52,44 +52,38 @@ function Student() {
     }
 
     return (
-        <div>
+        <div className="popup-container">
             {
                 entityUser === "ADMIN" &&            
                 <div className="popup">
-                    <div className="popup_inner">
-                        <h3 style={{ textAlign: 'center' }}>Cadastro de Usuários</h3>
-                        <form onSubmit={handleSubmit}>
-                            <input type="text" placeholder="Nome" value={name} onChange={(e) => setName(e.target.value)} />
-                            <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                            <input type="password" placeholder="Senha Inicial" value={initialPassword} onChange={(e) => setPassword(e.target.value)} />
-                            <div className="buttonDiv">
-                                <button className="submitButton" type="submit">Cadastrar</button>
-                            </div>
-                        </form>
-                    </div>
+                    <h3 style={{ textAlign: 'center' }}>Cadastro de Alunos</h3>
+                    <form onSubmit={handleSubmit}>
+                        <input type="text" placeholder="Nome" value={name} onChange={(e) => setName(e.target.value)} />
+                        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                        <input type="password" placeholder="Senha Inicial" value={initialPassword} onChange={(e) => setPassword(e.target.value)} />
+                        <div className="buttonDiv">
+                            <button className="submitButton" type="submit">Cadastrar</button>
+                        </div>
+                    </form>
                 </div>
             }
-            <div className='content'>
-                <div className="popup">
-                    <div className="popup_inner">
-                        <h2 style={{ textAlign: 'center' }}>Alunos Cadastradas</h2>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Email</th>
-                                    <th>Turmas</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {mountTable()}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <div className="popup-list">
+                <h3 style={{ textAlign: 'center' }}>Alunos Cadastrados</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Turmas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {mountTable()}
+                    </tbody>
+                </table>
             </div>
         </div>
-    );
+    );    
 }
 
 export default Student;

@@ -92,59 +92,52 @@ function Enroll() {
     }
 
     return (
-        <div className="container">
-            <div className="content">
-                <div className="popup">
-                    <div className="popup_inner">
-                        <h2 style={{ textAlign: 'center' }}>Matricular-se</h2>
-                        <form onSubmit={handleSubmit}>
-                            <label>
-                                <select value={idClass} onChange={(e) => setIdClass(e.target.value)}>
-                                    {mountOptionsClass()}
-                                </select>
-                            </label>
-                            <button type="submit">Cadastrar</button>
-                        </form>
+        <div className="popup-container">
+            <div className="popup">
+                <h3 style={{ textAlign: 'center' }}>Matricule-se</h3>
+                <form onSubmit={handleSubmit}>
+                    <label>
+                        <select value={idClass} onChange={(e) => setIdClass(e.target.value)}>
+                            {mountOptionsClass()}
+                        </select>
+                    </label>
+                    <div className="buttonDiv">
+                        <button className="submitButton" type="submit">Matricular</button>
                     </div>
-                </div>
-                <div className="popup">
-                    <div className="popup_inner">
-                        <h2 style={{ textAlign: 'center' }}>Turmas Disponiveis</h2>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Turma</th>
-                                    <th>Dia da Semana</th>
-                                    <th>Horario</th>
-                                    <th>Professor</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {mountTableClassesAvailable()}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div className="popup">
-                    <div className="popup_inner">
-                        <h2 style={{ textAlign: 'center' }}>Turmas Matriculadas</h2>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Turma</th>
-                                    <th>Dia da Semana</th>
-                                    <th>Horario</th>
-                                    <th>Professor</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {mountTableClassesEnrolled()}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                </form>
             </div>
-
+            <div className="popup-list">
+                <h3 style={{ textAlign: 'center' }}>Turmas Disponíveis</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Turma</th>
+                            <th>Dia da Semana</th>
+                            <th>Horário</th>
+                            <th>Professor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {mountTableClassesAvailable()}
+                    </tbody>
+                </table>
+            </div>
+            <div className="popup-list">
+                <h3 style={{ textAlign: 'center' }}>Matriculado</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Turma</th>
+                            <th>Dia da Semana</th>
+                            <th>Horario</th>
+                            <th>Professor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {mountTableClassesEnrolled()}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }

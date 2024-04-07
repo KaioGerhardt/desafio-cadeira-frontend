@@ -35,7 +35,7 @@ const SideBar = () => {
             {
                 entity === "STUDENT" && (
                     <ul>
-                        <li onClick={() => setComponent('enroll')}>Matriculas</li>
+                        <li onClick={() => setComponent('enroll')}>Matrícula</li>
                     </ul>
                 )
             }
