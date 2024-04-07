@@ -5,16 +5,17 @@ import config from '../../config';
 
 function Enroll() {
 
-    const [idStudent, setIdStudent] = useState(0);
     const [classesEnrolled, setClassesEnrolled] = useState([]);
     const [classesAvaliable, setClassesAvaliable] = useState([]);
-    const [idClass, setIdClass] = useState(0);
+    const [idClass, setIdClass] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // const response = await axios.post(`${config.backendUrl}/register`, { name, email, perfil, initialPassword });
-        // console.log(response);
+        console.log(idClass);
+
+        const response = await axios.post(`${config.backendUrl}/enroll`, { idClass, idStudent: localStorage.getItem('idUser') });
+        console.log(response);
 
         // onClose();
     };
@@ -22,12 +23,9 @@ function Enroll() {
 
     useEffect(() => {
 
-        setIdStudent(parseInt(localStorage.getItem('idUser')));
-
         const loadClassesEnrolled = async () => {
             try {
-                // console.log("enrolledIdStudent ", idStudent);  
-                const classes = await axios.post(`${config.backendUrl}/classes-enrolled`, { idStudent });
+                const classes = await axios.post(`${config.backendUrl}/classes-enrolled`, { idStudent: localStorage.getItem('idUser') });
                 setClassesEnrolled(classes.data.data);
             } catch (error) {
                 console.error('Erro ao carregar dados:', error);
@@ -38,8 +36,7 @@ function Enroll() {
 
         const loadClassesAvaliable = async () => {
             try {
-                console.log("avaliableIdStudent ", idStudent);    
-                const classes = await axios.post(`${config.backendUrl}/classes-avaliable`, { idStudent });
+                const classes = await axios.post(`${config.backendUrl}/classes-avaliable`, { idStudent: localStorage.getItem('idUser') });
                 setClassesAvaliable(classes.data.data);
             } catch (error) {
                 console.error('Erro ao carregar dados:', error);

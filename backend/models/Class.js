@@ -99,7 +99,7 @@ class ClassModel {
                     ON user.idUser = classTeacher.FK_idUser
                     AND user.type = 'TEACHER'
                 WHERE
-                    class.idClass is not exists (
+                    class.idClass not in (
                         SELECT class.idClass from class inner join enrollment on enrollment.FK_idClass = class.idClass where enrollment.FK_idUser = ?
                     )`, [body.idStudent]
             );
