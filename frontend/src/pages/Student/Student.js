@@ -1,5 +1,7 @@
 // src/pages/Dashboard/Dashboard.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import config from '../../config';
 
 function Enroll() {
 
@@ -7,6 +9,7 @@ function Enroll() {
     const [email, setEmail] = useState('');
     const [perfil, setPerfil] = useState('');
     const [initialPassword, setPassword] = useState('');
+    const [classesDataBase, setClassesDataBase] = useState([]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -16,6 +19,36 @@ function Enroll() {
 
         // onClose();
     };
+
+    useEffect(() => {
+
+        const loadStudents = async () => {
+            try {
+                const students = await axios.get(`${config.backendUrl}/students`);
+                console.log("data request ", students.data.data);
+                setClassesDataBase(students.data.data);
+            } catch (error) {
+                console.error('Erro ao carregar dados:', error);
+            }
+        };
+
+        loadStudents();
+    }, []);
+
+    const mountTable = () => {
+        return classesDataBase.map((element, index) => {
+            let dataTable = Object.fromEntries(Object.entries(element));
+            console.log('data table ', dataTable);
+
+            return (
+                <tr key={index}>
+                    <td>{dataTable.name}</td>
+                    <td>{dataTable.email}</td>
+                    <td>{dataTable.classesName}</td>
+                </tr>
+            )
+        });
+    }
 
     return (
         <div className="container">
@@ -48,8 +81,25 @@ function Enroll() {
                         </form>
                     </div>
                 </div>
-                <div className="popup">
-                    <h2 style={{ textAlign: 'center' }}>Usuarios cadastrados</h2>
+                <div className='content'>
+                    <div className="popup">
+                        <div className="popup_inner">
+                            <h2 style={{ textAlign: 'center' }}>Alunos Cadastradas</h2>
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Email</th>
+                                        <th>Turmas</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {mountTable()}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

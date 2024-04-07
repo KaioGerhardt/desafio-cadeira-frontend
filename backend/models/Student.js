@@ -22,15 +22,23 @@ class StudentModel {
 
     async getWithClass(body) {
         try{
-            const students = await db.get(
-                `SELECT *
-                FROM student
+            const students = await db.all(
+                `SELECT
+                    login.email,
+                    user.name,
+                    GROUP_CONCAT(IFNULL(class.name, 'Não vinculado')) as classesName
+                FROM user
+                INNER JOIN login
+                    ON login.idUser = user.idUser
                 LEFT JOIN enrollment 
-                    ON enrollment.FK_idStudent = student.idStudent
+                    ON enrollment.FK_idUser = user.idUser
                 LEFT JOIN class
-                    ON class.idClass = enrollment.FK_idClass`, []
+                    ON class.idClass = enrollment.FK_idClass
+                WHERE
+                    user.type = 'STUDENT'
+                GROUP BY user.idUser`, []
             );
-            
+
             if(students != null || students != undefined) {
                 return {code: 201, data: students};
             }else{

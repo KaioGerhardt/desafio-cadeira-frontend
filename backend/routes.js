@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const LoginModel = require('./models/Login.js');
 const ClassModel = require('./models/Class.js');
+const TeacherModel = require('./models/Teacher.js');
+const StudentModel = require('./models/Student.js');
 
 // Defina suas rotas aqui
 router.get('/', (req, res) => {
@@ -45,12 +47,21 @@ router.get ('/classes', async (req, res) => {
 
 
 // get teachers
-router.post ('/teachers', async (req, res) => {  
+router.get ('/teachers', async (req, res) => {  
 
-  const classModel = new ClassModel();
-  const newClass = await classModel.create(req.body);
+  const teacher = new TeacherModel();
+  const teachers = await teacher.get(req.body);
 
-  res.status(newClass.code).send(newClass);
+  res.status(teachers.code).send(teachers);
+});
+
+// get students
+router.get ('/students', async (req, res) => {  
+
+  const student = new StudentModel();
+  const students = await student.getWithClass(req.body);
+
+  res.status(students.code).send(students);
 });
 
 module.exports = router;
