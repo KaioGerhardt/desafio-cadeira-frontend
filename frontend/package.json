@@ -12,6 +12,7 @@
     "react-input-mask": "^2.0.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "5.0.1",
+    "sweetalert2": "^11.10.7",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -40,5 +41,5 @@
   },
   "devDependencies": {
     "eslint-plugin-react-router": "^0.0.1"
-  }  
+  }
 }

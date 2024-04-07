@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import './Login.css';
 import axios from 'axios';
 import config from '../../config';
+import Swal from 'sweetalert2';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -34,6 +35,11 @@ const Login = () => {
         }
       }
     } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Usuário ou senha inválidos!'
+      });
       console.error('Erro ao fazer login:', error);
     }
   };  
