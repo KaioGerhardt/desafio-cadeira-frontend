@@ -43,6 +43,14 @@ router.get ('/classes', async (req, res) => {
   res.status(newClass.code).send(newClass);
 });
 
+// get my classes
+router.post ('/my-classes', async (req, res) => {  
+  const classModel = new ClassModel();
+  const newClass = await classModel.myClasses(req.body);
+
+  res.status(newClass.code).send(newClass);
+});
+
 // get classes enrolled
 router.post ('/classes-enrolled', async (req, res) => {  
   const classModel = new ClassModel();
