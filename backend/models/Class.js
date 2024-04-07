@@ -30,8 +30,6 @@ class ClassModel {
                     AND user.type = 'TEACHER'`, []
             );
 
-            console.log(classes);
-
             if(classes != undefined) {
                 return {message: 'success',  data: classes, code: 200};
             }else{
