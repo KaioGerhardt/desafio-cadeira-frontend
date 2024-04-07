@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import config from '../../config';
+import Swal from 'sweetalert2';
 
 function Teacher() {
     const [name, setName] = useState('');
@@ -13,6 +14,21 @@ function Teacher() {
 
         const response = await axios.post(`${config.backendUrl}/register`, { name, email, perfil : "TEACHER", initialPassword });
         console.log(response);
+
+        if(response.status == 201){
+            Swal.fire({
+                icon: 'success',
+                title: 'Professor criado com sucesso!',
+                showConfirmButton: false,
+                timer: 1500
+              });
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Occoreu algum erro!'
+              });
+        }
 
         // onClose();
     };

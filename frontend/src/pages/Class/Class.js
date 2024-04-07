@@ -3,6 +3,7 @@ import './Class.css';
 import HoursInputMask from '../../mask/HoursInputMask';
 import axios from 'axios';
 import config from '../../config';
+import Swal from 'sweetalert2';
 
 const Class = () => {
     const [name, setName] = useState('');
@@ -21,6 +22,21 @@ const Class = () => {
 
         const response = await axios.post(`${config.backendUrl}/new-class`, { name, hoursOffered, dayOffered, limitStudents, regentTeacher: parseInt(regentTeacher) });
         console.log(response);
+
+        if(response.status == 201){
+            Swal.fire({
+                icon: 'success',
+                title: 'Login bem-sucedido!',
+                showConfirmButton: false,
+                timer: 1500
+              });
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Usuário ou senha inválidos!'
+              });
+        }
 
     };
 

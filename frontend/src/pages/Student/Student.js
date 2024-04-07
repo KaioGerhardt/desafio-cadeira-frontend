@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Student.css';
 import config from '../../config';
+import Swal from 'sweetalert2';
 
 function Student() {
 
@@ -17,6 +18,21 @@ function Student() {
 
         const response = await axios.post(`${config.backendUrl}/register`, { name, email, perfil: "STUDENT", initialPassword });
         console.log(response);
+
+        if(response.status == 201){
+            Swal.fire({
+                icon: 'success',
+                title: 'Aluno criado com sucesso!',
+                showConfirmButton: false,
+                timer: 1500
+              });
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Ocorreu algum erro!'
+              });
+        }
 
         // onClose();
     };
