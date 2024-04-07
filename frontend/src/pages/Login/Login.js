@@ -25,12 +25,13 @@ const Login = () => {
     try {
       const response = await axios.post(`${config.backendUrl}/login`, { email, password });
       console.log(response);
-
+      
       if (response.data.code == 200) {
         setEntity(response.data.user.type);
         setIdUser(response.data.user.idUser);
 
         if (response.data.authentication) {
+          localStorage.setItem("userName", response.data.user.name)
           setLoggedIn(true);
         }
       }
