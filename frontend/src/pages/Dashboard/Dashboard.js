@@ -7,6 +7,7 @@ import Teacher from '../Teacher/Teacher';
 import Student from '../Student/Student';
 import PropTypes from 'prop-types';
 
+
 function Dashboard() {
   const [component, setComponent] = useState(localStorage.getItem('suaVariavel'));
 
@@ -23,9 +24,7 @@ function Dashboard() {
 
   return (
     <div className="Dashboard">
-      <SideBar />
-      <h1>Variável atual: {component}</h1>
- 
+      <SideBar /> 
       {component == "class" && <Class onClose={handleClose} />}
       {component == "enroll" && <Enroll />}
       {component == "teacher" && <Teacher />}

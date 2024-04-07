@@ -1,9 +1,10 @@
 // src/pages/Dashboard/Dashboard.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './Student.css';
 import config from '../../config';
 
-function Enroll() {
+function Student() {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -51,30 +52,20 @@ function Enroll() {
     }
 
     return (
-        <div className="container">
+        <div>
             {
-                entityUser === "ADMIN" &&
-
-                <div className="content">
-                    <div className="popup">
-                        <div className="popup_inner">
-                            <h2 style={{ textAlign: 'center' }}>Cadastro de Alunos</h2>
-                            <form onSubmit={handleSubmit}>
-                                <label>
-                                    name:
-                                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-                                </label>
-                                <label>
-                                    Email:
-                                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                                </label>
-                                <label>
-                                    Senha Inicial:
-                                    <input type="password" value={initialPassword} onChange={(e) => setPassword(e.target.value)} />
-                                </label>
-                                <button type="submit">Cadastrar</button>
-                            </form>
-                        </div>
+                entityUser === "ADMIN" &&            
+                <div className="popup">
+                    <div className="popup_inner">
+                        <h3 style={{ textAlign: 'center' }}>Cadastro de Usuários</h3>
+                        <form onSubmit={handleSubmit}>
+                            <input type="text" placeholder="Nome" value={name} onChange={(e) => setName(e.target.value)} />
+                            <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                            <input type="password" placeholder="Senha Inicial" value={initialPassword} onChange={(e) => setPassword(e.target.value)} />
+                            <div className="buttonDiv">
+                                <button className="submitButton" type="submit">Cadastrar</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             }
@@ -82,7 +73,6 @@ function Enroll() {
                 <div className="popup">
                     <div className="popup_inner">
                         <h2 style={{ textAlign: 'center' }}>Alunos Cadastradas</h2>
-
                         <table>
                             <thead>
                                 <tr>
@@ -102,4 +92,4 @@ function Enroll() {
     );
 }
 
-export default Enroll;
+export default Student;

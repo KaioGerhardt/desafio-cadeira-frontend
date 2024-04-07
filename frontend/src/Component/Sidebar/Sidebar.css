@@ -1,16 +1,18 @@
 .sidebar {
-  position: fixed;
-  top: 0; /* Posiciona a barra lateral no topo */
+  top: 0;
   left: 0;
   width: 100%;
-  height: 80px; /* Defina a altura da barra lateral conforme necessário */
-  background-color: #333;
+  height: 50px;
+  background: linear-gradient(
+    58deg, rgba(243,172,18,1) 20%, rgba(241,196,15,1) 100%
+  );
   padding: 20px;
   box-sizing: border-box;
   display: flex;
   justify-content: space-around;
   align-items: center;
   z-index: 1000;
+  color: #fff;
 }
 
 .sidebar ul {
@@ -20,22 +22,13 @@
   display: flex;
 }
 
-.sidebar ul li {
-  margin-right: 20px;
-}
-
 .sidebar ul li:last-child {
   margin-right: 0;
 }
 
-.sidebar ul li a {
+.sidebar ul li {
   color: #fff;
   text-decoration: none;
-}
-
-.content {
-  margin-top: 80px; /* Adicione espaço ao conteúdo abaixo da barra lateral */
-  padding: 20px;
-  box-sizing: border-box;
-  z-index: 1;
+  margin-right: 20px;
+  cursor: pointer; 
 }
