@@ -9,6 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
   const [entity, setEntity] = useState('');
+  const [idUser, setIdUser] = useState(0);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -22,9 +23,11 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(`${config.backendUrl}/login`, { email, password });
+      console.log(response);
 
       if (response.data.code == 200) {
-        setEntity(response.data.user.entity);
+        setEntity(response.data.user.type);
+        setIdUser(response.data.user.idUser);
 
         if (response.data.authentication) {
           setLoggedIn(true);
@@ -41,6 +44,7 @@ const Login = () => {
 
   if (loggedIn) {
     localStorage.setItem("entityUser", entity);
+    localStorage.setItem("idUser", idUser);
 
     return <Redirect to="/dashboard" />;
   }

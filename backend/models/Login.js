@@ -6,7 +6,11 @@ class LoginModel {
     async login(body) {
         try {
             const user = await db.get(
-                "SELECT * FROM login WHERE email = ? AND password = ?", [body.email, body.password]
+                `SELECT * 
+                FROM login
+                INNER JOIN user
+                    ON user.idUser = login.idUser
+                WHERE email = ? AND password = ?`, [body.email, body.password]
             );
 
             if(user != undefined) {
