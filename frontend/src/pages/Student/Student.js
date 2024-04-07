@@ -1,5 +1,6 @@
 // src/pages/Dashboard/Dashboard.js
 import React, { useState } from 'react';
+import './Student.css';
 
 function Enroll() {
 
@@ -18,40 +19,23 @@ function Enroll() {
     };
 
     return (
-        <div className="container">
-            <div className="content">
-                <div className="popup">
-                    <div className="popup_inner">
-                        <h2 style={{ textAlign: 'center' }}>Cadastro de Alunos</h2>
-                        <form onSubmit={handleSubmit}>
-                            <label>
-                                name:
-                                <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-                            </label>
-                            <label>
-                                Email:
-                                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                            </label>
-                            <label>
-                                Perfil:
-                                <select value={perfil} onChange={(e) => setPerfil(e.target.value)}>
-                                    <option value="0">Selecione</option>
-                                    <option value="teacher">Professor</option>
-                                    <option value="student">Estudante</option>
-                                </select>
-                            </label>
-                            <label>
-                                Senha Inicial:
-                                <input type="password" value={initialPassword} onChange={(e) => setPassword(e.target.value)} />
-                            </label>
-                            <button type="submit">Cadastrar</button>
-                        </form>
-                    </div>
+        <div className="popup">
+                <div className="popup_inner">
+                    <h3 style={{ textAlign: 'center' }}>Cadastro de Usuários</h3>
+                    <form onSubmit={handleSubmit}>
+                            <input type="text" placeholder="Nome" value={name} onChange={(e) => setName(e.target.value)} />
+                            <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                            <input type="password" placeholder="Senha Inicial" value={initialPassword} onChange={(e) => setPassword(e.target.value)} />
+                            <select value={perfil} onChange={(e) => setPerfil(e.target.value)}>
+                                <option value="" disabled selected hidden>Perfil de Usuário</option>
+                                <option value="teacher">Professor</option>
+                                <option value="student">Estudante</option>
+                            </select>
+                            <div className="buttonDiv">
+                                <button className="submitButton" type="submit">Cadastrar</button>
+                            </div>
+                    </form>
                 </div>
-                <div className="popup">
-                    <h2 style={{ textAlign: 'center' }}>Usuarios cadastrados</h2>
-                </div>
-            </div>
         </div>
     );
 }
