@@ -21,17 +21,15 @@ class LoginModel {
 
     async create(body){
         try{
-            const table = body.perfil;
-
             const user = await db.run(
                 `INSERT INTO user (name, type)
-                VALUES (?, ?)`, [body.name, toUpperCase(body.perfil)]
+                VALUES (?, ?)`, [body.name, body.perfil]
             );
 
             const login = await db.run(
                 `INSERT INTO login (password, email, idUser)
-                VALUES (?,?,?,?)`,
-                [body.initialPassword, body.email, , user.lastID]
+                VALUES (?,?,?)`,
+                [body.initialPassword, body.email, user.lastID]
             );
 
             return {message: 'success', create: true, code: 201 }

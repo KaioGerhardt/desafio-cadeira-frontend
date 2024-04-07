@@ -5,15 +5,14 @@ import config from '../../config';
 function Teacher() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [perfil, setPerfil] = useState('');
     const [initialPassword, setPassword] = useState('');
     const [classesDataBase, setClassesDataBase] = useState([]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // const response = await axios.post(`${config.backendUrl}/register`, { name, email, perfil, initialPassword });
-        // console.log(response);
+        const response = await axios.post(`${config.backendUrl}/register`, { name, email, perfil : "TEACHER", initialPassword });
+        console.log(response);
 
         // onClose();
     };
@@ -60,14 +59,6 @@ function Teacher() {
                             <label>
                                 Email:
                                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                            </label>
-                            <label>
-                                Perfil:
-                                <select value={perfil} onChange={(e) => setPerfil(e.target.value)}>
-                                    <option value="0">Selecione</option>
-                                    <option value="teacher">Professor</option>
-                                    <option value="student">Estudante</option>
-                                </select>
                             </label>
                             <label>
                                 Senha Inicial:
