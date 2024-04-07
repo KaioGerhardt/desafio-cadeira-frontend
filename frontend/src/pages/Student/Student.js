@@ -39,7 +39,6 @@ function Enroll() {
     const mountTable = () => {
         return classesDataBase.map((element, index) => {
             let dataTable = Object.fromEntries(Object.entries(element));
-            console.log('data table ', dataTable);
 
             return (
                 <tr key={index}>
